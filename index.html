@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/b7e75ffc32.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -76,8 +76,12 @@
             <h3 class="forecast-title">Forecast</h3>
         </div>
         <div class="row gy-4 mb-4">
-            <div class="col-lg-2 col-md-4 col-sm-6">
-                <div class="box forecast-box"></div>
+            <div class="col-lg-2 col-md-4 col-sm-6 d-flex align-items-center">
+                <div class="box forecast-box">
+                    <p class="m-0 mt-3">Saturday | 31</p>
+                    <img src="img/mostly-sunny-day.png" alt="">
+                    <h2>25<sup>o</sup>C</h2>
+                </div>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6">
                 <div class="box forecast-box"></div>
@@ -99,11 +103,25 @@
 
     <script src="app.js"></script>
     <script>  
-        var map = L.map('map').setView([51.505, -0.09], 13);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        // Initialize the map and set its view (latitude, longitude, zoom level)
+        var map = L.map('map', { zoomControl: false }).setView([20, 0], 2);
+
+        // Add a base map (OpenStreetMap)
+        var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap contributors'
+        });
+
+        // Add the OpenWeather precipitation layer
+        var apiKey = '340da5e2343ca92b927da39bd7d30457'; // Replace with your API key
+        var precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+        maxZoom: 18,
+        attribution: '© OpenWeather'
+        });
+
+        // Add both layers to the map
+        osmLayer.addTo(map);            // Add the base map layer
+        precipitationLayer.addTo(map); 
     </script>
 </body>
 </html>

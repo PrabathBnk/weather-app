@@ -197,6 +197,27 @@ body{
     font-size: calc(7px + 0.4vw);
 }
 
+.forecast-box{
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 5%, rgba(246,247,255,1) 45%, rgba(224,227,255,1) 100%);
+    height: fit-content;
+}
+
+.forecast-box h2{
+    font-weight: 600;
+    font-size: calc(2.5rem + 0.5vw);
+    color: #555B97;
+}
+
+.forecast-box p{
+    color: #878CCA;
+}
+
+.forecast-box img{
+    width: 65%;
+}
+
 @media (max-width:600px){
     .search-bar input{
         font-size: 12px;
