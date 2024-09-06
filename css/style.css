@@ -135,6 +135,55 @@ body{
     color: var(--secordary);
 }
 
+.weather-heading h4{
+    font-weight: 600;
+    font-size: calc(12px + 0.7vw);
+    color: #3B5D85;
+}
+
+.weather-heading p{
+    color: #6C86A3;
+    font-size: calc(8px + 0.4vw);
+}
+
+.weather img{
+    width: calc(120px + 4vw);
+    z-index: 5;
+}
+
+.weather-num{
+    font-weight: 600;
+    font-size: calc(45px + 3vw);
+    color: #3B5D85;
+}
+
+.weather-unit{
+    font-size: calc(12px + 0.5vw);
+    position: relative;
+    top: calc(-30px + -1.4vw);
+}
+
+.info-title{
+    color: #6C86A3;
+    padding-right: 10px;
+    font-size: calc(10px + 0.4vw);
+}
+
+.weather table td:not(.info-title){
+    padding-left: 10px;
+    border-left: 1px solid #C6D1DF;
+    color: #3B5D85;
+    font-size: calc(14px + 0.4vw);
+}
+
+.weather-bg-img{
+    position: relative;
+    top: calc(-10rem + -2vw);
+    left: calc(-5rem + -2vw);
+    z-index: 0;
+    filter: blur(5rem);
+}
+
 @media (max-width:600px){
     .search-bar input{
         font-size: 12px;

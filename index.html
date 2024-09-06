@@ -37,8 +37,28 @@
                     <input class="" type="text" placeholder="Search location" autocomplete="off">
                     <i class="fa-solid fa-magnifying-glass float-end pe-4 pt-1"></i>
                 </div>
-                <div class="box mt-4 weather-box">
-                    
+                <div class="box mt-4 weather-box overflow-hidden">
+                    <div class="flex-row weather-heading px-md-4 pt-md-4 px-sm-3 pt-sm-3 px-3 pt-3">
+                        <h4 class="d-inline-block">Current weather</h4>
+                        <p class="d-inline-block float-end">Colombo, Western Province, Sri Lanka <i class="fa-solid fa-house ps-2"></i></p>
+                    </div>
+                    <div class="flex-row">
+                        <div class="d-flex align-items-center w-100 weather ms-4 flex-wrap">
+                            <img src="img/mostly-sunny-day.png" alt="">
+                            <p class="d-inline-block m-0 ms-md-4 weather-num">30<span class="weather-unit"><sup>o</sup>C</span></p>
+                            <table class="ms-5">
+                                <tr>
+                                    <td class="info-title">Wind</td>
+                                    <td>10 km/h</td>
+                                </tr>
+                                <tr>
+                                    <td class="info-title">Humidity</td>
+                                    <td>10%</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <img class="w-50 weather-bg-img" src="img/mostly-sunny-day.png" alt="">
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 box map-box"></div>
