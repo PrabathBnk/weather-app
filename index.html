@@ -15,8 +15,8 @@
     <div class="container mt-5">
         <div class="row justify-content-between">
             <div class="col-md-4">
-                <h2 class="time">00:00 AM</h2>
-                <p class="date">Thursday, 30 August, 2024</p>
+                <h2 class="time" id="time">00:00 AM</h2>
+                <p class="date" id="date">Thursday, 30 August, 2024</p>
             </div>
             <div class="col-md-6">
                 <div class="float-end">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="row">
-            <h1 class="greenting">Good morning!</h1>
+            <h1 class="greenting" id="greeting">Good morning!</h1>
         </div>
         <div class="row gy-4">
             <div class="col-md-6 col-sm-12 pe-md-5">
@@ -43,24 +43,27 @@
                 <div class="box mt-4 weather-box overflow-hidden">
                     <div class="flex-row weather-heading px-md-4 pt-md-4 px-sm-3 pt-sm-3 px-3 pt-3">
                         <h4 class="d-inline-block">Current weather</h4>
-                        <p class="d-inline-block float-end">Colombo, Western Province, Sri Lanka <i class="fa-solid fa-house ps-2"></i></p>
+                        <p class="d-inline-block float-end"><span id="location" >Colombo, Western Province, Sri Lanka</span> <i class="fa-solid fa-house ps-2"></i></p>
                     </div>
                     <div class="flex-row">
                         <div class="d-flex align-items-center w-100 weather ms-4 flex-wrap">
-                            <img src="img/mostly-sunny-day.png" alt="">
-                            <p class="d-inline-block m-0 ms-md-4 weather-num">30<span class="weather-unit"><sup>o</sup>C</span></p>
-                            <table class="ms-5">
+                            <img id="weatherIcon" src="" alt="">
+                            <div class="ms-md-4 ">
+                                <p class="d-inline-block m-0 weather-num"><span id="tempNum">30</span><span class="weather-unit"><sup>o</sup>C</span></p>
+                                <p class="weather-condition" id="condition">Mostly sunny</p>
+                            </div>
+                            <table class="ms-5 other-info-tbl">
                                 <tr>
                                     <td class="info-title">Wind</td>
-                                    <td>10 km/h</td>
+                                    <td id="wind">10 km/h</td>
                                 </tr>
                                 <tr>
                                     <td class="info-title">Humidity</td>
-                                    <td>10%</td>
+                                    <td id="humidity">10%</td>
                                 </tr>
                             </table>
                         </div>
-                        <img class="w-50 weather-bg-img" src="img/mostly-sunny-day.png" alt="">
+                        <img id="weatherBgImage" class="w-50 weather-bg-img" src="" alt="">
                     </div>
                 </div>
             </div>
@@ -75,29 +78,8 @@
         <div class="row mt-4">
             <h3 class="forecast-title">Forecast</h3>
         </div>
-        <div class="row gy-4 mb-4">
-            <div class="col-lg-2 col-md-4 col-sm-6 d-flex align-items-center">
-                <div class="box forecast-box">
-                    <p class="m-0 mt-3">Saturday | 31</p>
-                    <img src="img/mostly-sunny-day.png" alt="">
-                    <h2>25<sup>o</sup>C</h2>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6">
-                <div class="box forecast-box"></div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6">
-                <div class="box forecast-box"></div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6">
-                <div class="box forecast-box"></div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6">
-                <div class="box forecast-box"></div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6">
-                <div class="box forecast-box"></div>
-            </div>
+        <div id="forecastField" class="row gy-4 mb-4">
+            
         </div>
     </div>
 
