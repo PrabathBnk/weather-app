@@ -37,8 +37,8 @@
         <div class="row gy-4">
             <div class="col-md-6 col-sm-12 pe-md-5">
                 <div class="box search-bar ps-md-4 py-md-2 ps-sm-3 py-sm-2 ps-2 py-1">
-                    <input class="" type="text" placeholder="Search location" autocomplete="off">
-                    <i class="fa-solid fa-magnifying-glass float-end pe-4 pt-1"></i>
+                    <input id="txtSearch" type="text" placeholder="Search location" autocomplete="off">
+                    <i id="btnSearch" class="fa-solid fa-magnifying-glass float-end pe-4 pt-1"></i>
                 </div>
                 <div class="box mt-4 weather-box overflow-hidden">
                     <div class="flex-row weather-heading px-md-4 pt-md-4 px-sm-3 pt-sm-3 px-3 pt-3">
@@ -84,26 +84,5 @@
     </div>
 
     <script src="app.js"></script>
-    <script>  
-        // Initialize the map and set its view (latitude, longitude, zoom level)
-        var map = L.map('map', { zoomControl: false }).setView([20, 0], 2);
-
-        // Add a base map (OpenStreetMap)
-        var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap contributors'
-        });
-
-        // Add the OpenWeather precipitation layer
-        var apiKey = '340da5e2343ca92b927da39bd7d30457'; // Replace with your API key
-        var precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
-        maxZoom: 18,
-        attribution: '© OpenWeather'
-        });
-
-        // Add both layers to the map
-        osmLayer.addTo(map);            // Add the base map layer
-        precipitationLayer.addTo(map); 
-    </script>
 </body>
 </html>

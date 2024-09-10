@@ -1,9 +1,38 @@
+// Initialize the map and set its view (latitude, longitude, zoom level)
+var map = L.map('map', { zoomControl: false }).setView([20, 0], 1);
+
+// Add a base map (OpenStreetMap)
+var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+maxZoom: 18,
+attribution: '© OpenStreetMap contributors'
+});
+
+// Add the OpenWeather precipitation layer
+var apiKey = '340da5e2343ca92b927da39bd7d30457'; // Replace with your API key
+var precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`, {
+maxZoom: 18,
+attribution: '© OpenWeather'
+});
+
+// Add both layers to the map
+osmLayer.addTo(map);            // Add the base map layer
+precipitationLayer.addTo(map); 
+
+function updateLocation(lat, lon, zoom) {
+    map.setView([lat, lon], zoom);
+}
+
 window.addEventListener("load", ()=>{
     currentTime();
 });
 
 navigator.geolocation.getCurrentPosition((position) =>{
-    fetch(`http://api.weatherapi.com/v1/timezone.json?key=fbc4ec1e29e7434cb3f05355240909&q=${position.coords.latitude},${position.coords.longitude}`).then(req => req = req.json()).then(data =>{
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
+
+    updateLocation(latitude, longitude, 10);
+
+    fetch(`http://api.weatherapi.com/v1/timezone.json?key=fbc4ec1e29e7434cb3f05355240909&q=${latitude},${longitude}`).then(req => req = req.json()).then(data =>{
         console.log("Location detected!");
         
         let location = data.location;        
@@ -11,38 +40,10 @@ navigator.geolocation.getCurrentPosition((position) =>{
         
 
         fetch(`http://api.weatherapi.com/v1/forecast.json?key=fbc4ec1e29e7434cb3f05355240909&q=${location.name}&days=7&aqi=no&alerts=yes`).then(req => req = req.json()).then(data => {            
-            document.getElementById("tempNum").innerHTML = Math.round(data.current.temp_c);
-            document.getElementById("condition").innerHTML = data.current.condition.text;
-
-            let imgSource = `img/${data.current.is_day == 1? "day": "night"}/${data.current.condition.code}.png`;
-            document.getElementById("weatherIcon").src = imgSource;
-            document.getElementById("weatherBgImage").src = imgSource;
-            
-            console.log(data);
-            
-            document.getElementById("wind").innerText = Math.round(data.current.wind_kph) + " km/h";
-            document.getElementById("humidity").innerHTML = data.current.humidity + "%";
+            setCurrentWeather(data);
 
             //-------------------------------------Forecst-----------------------------------
-            let forecast = data.forecast.forecastday;
-            let forecastBody = ``;
-
-            for (let i = 1; i < forecast.length; i++) {
-                let date = new Date(forecast[i].date);
-
-                let imgSrc = `img/day/${forecast[i].day.condition.code}.png`;
-                
-                forecastBody += `<div class="col-lg-2 col-md-4 col-sm-6 d-flex align-items-center">
-                                        <div class="box forecast-box">
-                                            <p class="m-0 mt-3">${getDayName(date.getDay())} | ${date.getDate()}</p>
-                                            <img src="${imgSrc}" alt="">
-                                            <h2>${Math.round(forecast[i].day.avgtemp_c)}<sup>o</sup>C</h2>
-                                        </div>
-                                    </div>`;
-                
-            }
-
-            document.getElementById("forecastField").innerHTML = forecastBody;
+            setForecast(data);
             
         });
     });
@@ -50,6 +51,61 @@ navigator.geolocation.getCurrentPosition((position) =>{
     console.log(error);
     
 });
+
+
+document.getElementById("btnSearch").addEventListener("click", function(){
+
+    let searchLocation = document.getElementById("txtSearch").value;
+    fetch(`http://api.weatherapi.com/v1/forecast.json?key=fbc4ec1e29e7434cb3f05355240909&q=${searchLocation}&days=7&aqi=no&alerts=yes`).then(res => res = res.json()).then(data => {
+        updateLocation(data.location.lat, data.location.lon, 10);
+        setCurrentWeather(data);
+        setForecast(data)
+        document.getElementById("location").innerHTML = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
+    });
+});
+
+document.getElementById("txtSearch").addEventListener("keydown", (event)=>{
+
+    if(event.key == "Enter"){
+        document.getElementById("btnSearch").dispatchEvent(new Event("click"));
+    }
+});
+
+
+function setForecast(data){
+    let forecast = data.forecast.forecastday;
+    let forecastBody = ``;
+
+    for (let i = 1; i < forecast.length; i++) {
+        let date = new Date(forecast[i].date);
+
+        let imgSrc = `img/day/${forecast[i].day.condition.code}.png`;
+        
+        forecastBody += `<div class="col-lg-2 col-md-4 col-sm-6 d-flex align-items-center">
+                                <div class="box forecast-box">
+                                    <p class="m-0 mt-3">${getDayName(date.getDay())} | ${date.getDate()}</p>
+                                    <img src="${imgSrc}" alt="">
+                                    <h2>${Math.round(forecast[i].day.avgtemp_c)}<sup>o</sup>C</h2>
+                                </div>
+                            </div>`;
+        
+    }
+
+    document.getElementById("forecastField").innerHTML = forecastBody;
+}
+
+
+function setCurrentWeather(data){
+    document.getElementById("tempNum").innerHTML = Math.round(data.current.temp_c);
+    document.getElementById("condition").innerHTML = data.current.condition.text;
+
+    let imgSource = `img/${data.current.is_day == 1? "day": "night"}/${data.current.condition.code}.png`;
+    document.getElementById("weatherIcon").src = imgSource;
+    document.getElementById("weatherBgImage").src = imgSource;
+        
+    document.getElementById("wind").innerText = Math.round(data.current.wind_kph) + " km/h";
+    document.getElementById("humidity").innerHTML = data.current.humidity + "%";
+}
 
 function currentTime(){
     let today = new Date();
@@ -103,7 +159,6 @@ function getDayName(dayNum) {
 
     return dayNames[dayNum];
 }
-
 
 
 
