@@ -232,7 +232,7 @@ body{
 }
 
 .loading-logo{
-    width: 6%;
+    width: calc(5rem + 2.5vw);
     animation: 1.5s ease infinite loading;
 }
 
