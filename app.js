@@ -27,19 +27,20 @@ window.addEventListener("load", ()=>{
 });
 
 navigator.geolocation.getCurrentPosition((position) =>{
+    console.log("Latitude & Longitude Detected!");
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
 
     updateLocation(latitude, longitude, 10);
 
-    fetch(`http://api.weatherapi.com/v1/timezone.json?key=fbc4ec1e29e7434cb3f05355240909&q=${latitude},${longitude}`).then(req => req = req.json()).then(data =>{
+    fetch(`https://api.weatherapi.com/v1/timezone.json?key=fbc4ec1e29e7434cb3f05355240909&q=${latitude},${longitude}`).then(req => req = req.json()).then(data =>{
         console.log("Location detected!");
         
         let location = data.location;        
         document.getElementById("location").innerHTML = `${location.name}, ${location.region}, ${location.country}`;
         
 
-        fetch(`http://api.weatherapi.com/v1/forecast.json?key=fbc4ec1e29e7434cb3f05355240909&q=${location.name}&days=7&aqi=no&alerts=yes`).then(req => req = req.json()).then(data => {            
+        fetch(`https://api.weatherapi.com/v1/forecast.json?key=fbc4ec1e29e7434cb3f05355240909&q=${location.name}&days=7&aqi=no&alerts=yes`).then(req => req = req.json()).then(data => {            
             setCurrentWeather(data);
 
             //-------------------------------------Forecst-----------------------------------
@@ -56,7 +57,7 @@ navigator.geolocation.getCurrentPosition((position) =>{
 document.getElementById("btnSearch").addEventListener("click", function(){
 
     let searchLocation = document.getElementById("txtSearch").value;
-    fetch(`http://api.weatherapi.com/v1/forecast.json?key=fbc4ec1e29e7434cb3f05355240909&q=${searchLocation}&days=7&aqi=no&alerts=yes`).then(res => res = res.json()).then(data => {
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=fbc4ec1e29e7434cb3f05355240909&q=${searchLocation}&days=7&aqi=no&alerts=yes`).then(res => res = res.json()).then(data => {
         updateLocation(data.location.lat, data.location.lon, 10);
         setCurrentWeather(data);
         setForecast(data)
