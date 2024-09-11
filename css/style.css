@@ -231,6 +231,36 @@ body{
     margin-bottom: 0;
 }
 
+.loading-logo{
+    width: 6%;
+    animation: 1.5s ease infinite loading;
+}
+
+.loading{
+    background-color: #e5f1fa;
+}
+
+@keyframes loading{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
 @media (max-width:600px){
     .search-bar input{
         font-size: 12px;

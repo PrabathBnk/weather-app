@@ -1,3 +1,5 @@
+loading();
+
 // Initialize the map and set its view (latitude, longitude, zoom level)
 var map = L.map('map', { zoomControl: false }).setView([20, 0], 1);
 
@@ -36,6 +38,10 @@ navigator.geolocation.getCurrentPosition((position) =>{
     fetch(`https://api.weatherapi.com/v1/timezone.json?key=fbc4ec1e29e7434cb3f05355240909&q=${latitude},${longitude}`).then(req => req = req.json()).then(data =>{
         console.log("Location detected!");
         
+        setTimeout(() => {
+            closeLoading();
+        }, 1000);
+
         let location = data.location;        
         document.getElementById("location").innerHTML = `${location.name}, ${location.region}, ${location.country}`;
         
@@ -159,6 +165,28 @@ function getDayName(dayNum) {
     ]
 
     return dayNames[dayNum];
+}
+
+function loading(){
+    let loadingBody = `<div id="loading" class="position-absolute d-grid top-0 w-100 h-100 z-3 loading">
+                            <img class="mx-auto align-self-center loading-logo" src="img/Logo_01.png" alt="">
+                        </div>`;
+
+
+    document.body.innerHTML += loadingBody;
+    document.getElementById("weatherIcon").classList.add("visually-hidden");
+}
+
+
+function closeLoading(){
+    document.getElementById("loading").style.animation = "1s ease-out normal fadeout";
+    setTimeout(() => {
+        document.body.removeChild(document.getElementById("loading"));
+    }, 1000);
+    
+    setTimeout(() => {
+        document.getElementById("weatherIcon").classList.remove("visually-hidden");
+    }, 100);
 }
 
 
