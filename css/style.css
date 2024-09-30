@@ -240,6 +240,47 @@ body{
     background-color: #e5f1fa;
 }
 
+.measure-btn{
+    margin-bottom: -1rem;
+}
+
+.measure-btn button{
+    background-color: transparent;
+    border: none;
+    border: 1px solid #6C86A3;
+    color: #243e5c;
+    transition: background-color 0.2s ease;
+}
+
+.measure-btn button:first-child{
+    border-radius: 1rem 0 0 1rem;
+}
+
+.measure-btn button:last-child{
+    border-radius: 0 1rem 1rem 0;
+}
+
+.measure-btn button:not(.active-measure):hover{
+    background-color: #d8e0e9;
+}
+
+.measure-btn div{
+    border-radius: 1rem;
+}
+
+.active-measure{
+    background-color: #90a6c0 !important;
+    color: #fff !important;
+}
+
+.active-measure:hover{
+    background-color: #6e849e !important;
+}
+
+.weather div{
+    width: 31%;
+}
+
 @keyframes loading{
     0%{
         opacity: 0;

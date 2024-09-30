@@ -59,6 +59,7 @@ navigator.geolocation.getCurrentPosition((position) =>{
     
 });
 
+let weather;
 
 document.getElementById("btnSearch").addEventListener("click", function(){
 
@@ -79,7 +80,8 @@ document.getElementById("txtSearch").addEventListener("keydown", (event)=>{
 });
 
 
-function setForecast(data){
+function setForecast(data){    
+
     let forecast = data.forecast.forecastday;
     let forecastBody = ``;
 
@@ -103,7 +105,8 @@ function setForecast(data){
 
 
 function setCurrentWeather(data){
-    document.getElementById("tempNum").innerHTML = Math.round(data.current.temp_c);
+    weather = data.current;
+    document.querySelector(".active-measure").dispatchEvent(new Event("click"));
     document.getElementById("condition").innerHTML = data.current.condition.text;
 
     let imgSource = `img/${data.current.is_day == 1? "day": "night"}/${data.current.condition.code}.png`;
@@ -175,6 +178,7 @@ function loading(){
 
     document.body.innerHTML += loadingBody;
     document.getElementById("weatherIcon").classList.add("visually-hidden");
+    document.getElementById("main").style.position = "fixed";
 }
 
 
@@ -185,9 +189,24 @@ function closeLoading(){
     }, 1000);
     
     setTimeout(() => {
+        document.getElementById("main").style.removeProperty("position");
         document.getElementById("weatherIcon").classList.remove("visually-hidden");
     }, 100);
 }
 
+
+function changeMeasure(measure){
+    if(measure == "f"){
+        document.getElementById("measure-f").classList.add("active-measure");
+        document.getElementById("measure-c").classList.remove("active-measure");
+        document.getElementById("tempNum").innerText = Math.round(weather.temp_f);
+        document.getElementById("measureUnit").innerHTML = "<sup>o</sup>F</span>";
+    }else{
+        document.getElementById("measure-c").classList.add("active-measure");
+        document.getElementById("measure-f").classList.remove("active-measure");
+        document.getElementById("tempNum").innerText = Math.round(weather.temp_c);
+        document.getElementById("measureUnit").innerHTML = "<sup>o</sup>C</span>";
+    }
+}
 
 
