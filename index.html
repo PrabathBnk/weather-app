@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
-<body>
+<body class="">
     
     <div id="main" class="container mt-5">
         <div class="row justify-content-between">
@@ -27,8 +27,7 @@
                     </button>
                     <button class="btn btn-bg fw-semibold"><i class="fa-solid fa-clock-rotate-left"></i>&nbsp;&nbsp;Historical</button>
                     <div class="d-inline theme-toggler">
-                        <button><i class="fa-regular fa-sun active-theme"></i></button>
-                        <button><i class="fa-regular fa-moon"></i></button>
+                        <button onclick="changeMode(event)"><i class="fa-regular fa-sun"></i></button>
                     </div>
                 </div>
             </div>

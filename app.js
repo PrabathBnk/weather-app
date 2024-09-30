@@ -210,3 +210,21 @@ function changeMeasure(measure){
 }
 
 
+function changeMode(event){
+    
+    if(event.target.classList.contains("fa-sun")){
+        event.target.classList.remove("fa-sun");
+        event.target.classList.add("fa-moon");
+
+        document.body.classList.add("dark-mode");
+    }else{
+        event.target.classList.remove("fa-moon");
+        event.target.classList.add("fa-sun");
+
+        document.body.classList.remove("dark-mode");
+    }
+    
+}
+
+
+
